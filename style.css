@@ -28,7 +28,7 @@ h2 {
 /* ===== Formulário ===== */
 form {
   display: grid;
-  gap: 15px;
+  gap: 10px;
 }
 
 form label {
