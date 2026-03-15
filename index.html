@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>Registo de Trabalhos</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<style>
+
+body{
+font-family: Arial;
+max-width:800px;
+margin:auto;
+padding:20px;
+}
+
+input, textarea{
+width:100%;
+padding:8px;
+margin:5px 0;
+}
+
+button{
+padding:10px;
+margin-top:10px;
+}
+
+table{
+width:100%;
+margin-top:30px;
+border-collapse:collapse;
+}
+
+td,th{
+border:1px solid #ccc;
+padding:8px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Novo Trabalho</h2>
+
+<form id="form">
+
+<label>Data</label>
+<input type="date" id="data" required>
+
+<label>Hora entrada</label>
+<input type="time" id="entrada" required>
+
+<label>Hora saída</label>
+<input type="time" id="saida" required>
+
+<label>Local</label>
+<input type="text" id="local">
+
+<label>Distância km</label>
+<input type="number" id="distancia">
+
+<label>Observações</label>
+<textarea id="obs"></textarea>
+
+<button type="submit">Guardar</button>
+
+</form>
+
+<h2>Lista de Trabalhos</h2>
+
+<button onclick="exportarExcel()">Exportar Excel</button>
+
+<table id="tabela">
+
+<thead>
+<tr>
+<th>Data</th>
+<th>Entrada</th>
+<th>Saída</th>
+<th>Local</th>
+<th>Distância</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<script>
+
+const supabase = window.supabase.createClient(
+"SUPABASE_URL",
+"SUPABASE_ANON_KEY"
+)
+
+document.getElementById("form").onsubmit = async (e)=>{
+
+e.preventDefault()
+
+await supabase.from("trabalhos").insert({
+
+data: data.value,
+hora_entrada: entrada.value,
+hora_saida: saida.value,
+local: local.value,
+distancia: distancia.value,
+observacoes: obs.value
+
+})
+
+alert("Trabalho guardado")
+
+carregar()
+
+}
+
+async function carregar(){
+
+const {data} = await supabase
+.from("trabalhos")
+.select("*")
+.order("data",{ascending:false})
+
+const tbody = document.querySelector("tbody")
+
+tbody.innerHTML=""
+
+data.forEach(t=>{
+
+tbody.innerHTML += `
+<tr>
+<td>${t.data}</td>
+<td>${t.hora_entrada}</td>
+<td>${t.hora_saida}</td>
+<td>${t.local}</td>
+<td>${t.distancia}</td>
+</tr>
+`
+
+})
+
+}
+
+carregar()
+
+function exportarExcel(){
+
+let tabela=document.getElementById("tabela")
+
+let wb=XLSX.utils.table_to_book(tabela)
+
+XLSX.writeFile(wb,"trabalhos.xlsx")
+
+}
+
+</script>
+
+</body>
+</html>
