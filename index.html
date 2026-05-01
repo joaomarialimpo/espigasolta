@@ -1,82 +1,99 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <title>ESPIGA À SOLTA</title>
-  <link rel="icon" type="image/png" href="logo_fav.png">
-  <!-- Ícone para iPhone/iOS -->
-  <link rel="apple-touch-icon" href="logo_fav.png">
-  <!-- Ícone para Android e Chrome -->
-  <link rel="icon" sizes="192x192" href="logo_fav.png">
-  <!-- Cor da barra de endereço no telemóvel (opcional, para combinar com a app) -->
-  <meta name="theme-color" content="#2F7D4A">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<!DOCTYPE html> <!-- Declara que este é um documento HTML5, a versão mais moderna do HTML -->
+<html lang="pt"> <!-- Abre o documento HTML. lang="pt" indica que o idioma da página é Português -->
+<head> <!-- Secção invisível ao utilizador, contém configurações e ligações da página -->
+  <meta charset="UTF-8"> <!-- Define a codificação de caracteres UTF-8, permitindo acentos e caracteres especiais (ã, é, ç...) -->
+  <title>ESPIGA À SOLTA</title> <!-- Texto que aparece no separador (aba) do browser e quando se guarda nos favoritos -->
+  <link rel="icon" type="image/png" href="images/logo_fav.png"> <!-- Define o favicon (ícone pequeno no separador do browser). Aponta para a imagem logo_fav.png na pasta images -->
+  <!-- Ícone para iPhone/iOS --> <!-- Comentário a indicar que o link seguinte é específico para dispositivos Apple -->
+  <link rel="apple-touch-icon" href="images/logo_fav.png"> <!-- Ícone que aparece quando o utilizador guarda a app no ecrã inicial do iPhone/iPad -->
+  <!-- Ícone para Android e Chrome --> <!-- Comentário a indicar que o link seguinte é específico para Android e Chrome -->
+  <link rel="icon" sizes="192x192" href="images/logo_fav.png"> <!-- Ícone de alta resolução (192x192 pixels) para Android e Chrome, usado quando se instala como PWA -->
+  <!-- Cor da barra de endereço no telemóvel (opcional, para combinar com a app) --> <!-- Comentário explicativo sobre a meta tag seguinte -->
+  <meta name="theme-color" content="#2F7D4A"> <!-- Define a cor da barra de endereço do browser no telemóvel. #2F7D4A é o verde da app -->
+  <meta name="mobile-web-app-capable" content="yes"> <!-- Permite que a app seja instalada no ecrã inicial do Android como uma app autónoma (sem barra do browser) -->
+  <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Permite que a app seja instalada no ecrã inicial do iPhone como uma app autónoma (sem barra do Safari) -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&display=swap" rel="stylesheet"> <!-- Carrega a fonte IBM Plex Sans Bold (peso 700) do Google Fonts para usar na app -->
+  <link rel="stylesheet" href="styles.css"> <!-- Liga o ficheiro de estilos styles.css a esta página. Deve vir DEPOIS das fontes para as poder usar -->
 </head>
-<body class="login-bg">
+<body class="login-bg"> <!-- Abre o corpo visível da página. class="login-bg" aplica o fundo de imagem do login definido no CSS -->
 
-  <!-- LOGIN -->
-  <div id="login-section">
-    <img src="logo_vector.png" alt="Espiga Solta" class="login-logo">
-    <input type="email" id="email" placeholder="EMAIL">
-    <input type="password" id="password" placeholder="PASSWORD">
-    <button onclick="login()">LOGIN</button>
+  <!-- LOGIN --> <!-- Comentário a separar e identificar a secção de login -->
+  <div id="login-section"> <!-- Caixa que contém todo o formulário de login. O id permite ao JavaScript mostrá-la/escondê-la -->
+    <img src="images/logo_vector.png" alt="Espiga Solta" class="login-logo"> <!-- Imagem do logótipo. alt é o texto alternativo se a imagem não carregar. class aplica os estilos do logo -->
+    <input type="email" id="email" placeholder="EMAIL"> <!-- Campo de texto para o email. type="email" valida automaticamente o formato. placeholder mostra "EMAIL" em cinzento -->
+    <input type="password" id="password" placeholder="PASSWORD"> <!-- Campo de password. type="password" esconde os caracteres com pontos (●●●). placeholder mostra "PASSWORD" -->
+    <button onclick="login()">LOGIN</button> <!-- Botão que ao ser clicado executa a função login() definida no app.js -->
+    <footer class="signature">
+      <span class="produced-by">PRODUCED BY</span>
+      <img src="images/logo_amusing_cloud.png" alt="Logo">
+      <span class="brand-name">AMUSING-CLOUD</span>
+    </footer>
   </div>
 
-  <!-- VISTA TRABALHADOR -->
-  <div id="worker-app" class="hidden">
-    <h2>NOVO SERVIÇO</h2>
-    <form id="serviceForm">
-      <input type="text" id="company" placeholder="Empresa (Cliente)">
-      <input type="text" id="location" placeholder="Local">
-      <input type="date" id="date">
-      <input type="time" id="startTime" placeholder="Hora de Início">
-      <input type="time" id="endTime" placeholder="Hora de Fim">
-      <label class="transport-label">
-        Transporte
-        <input type="checkbox" id="transport">
+  <!-- VISTA TRABALHADOR --> <!-- Comentário a separar e identificar a secção exclusiva do perfil Trabalhador -->
+  <div id="worker-app" class="hidden"> <!-- Caixa da vista do Trabalhador. class="hidden" torna-a invisível até o login ser feito com o perfil correto -->
+    <h2>NOVO SERVIÇO</h2> <!-- Título de nível 2 da secção de inserção de serviços -->
+    <form id="serviceForm"> <!-- Formulário com id "serviceForm". O JavaScript vai detetar a sua submissão para guardar os dados -->
+      <input type="text" id="company" placeholder="Empresa (Cliente)"> <!-- Campo de texto para o nome da empresa cliente onde o serviço foi prestado -->
+      <input type="text" id="location" placeholder="Local"> <!-- Campo de texto para o local/morada onde o serviço foi realizado -->
+      <input type="date" id="date"> <!-- Campo de data do serviço. type="date" mostra um calendário automático no browser/telemóvel -->
+      <input type="time" id="startTime" placeholder="Hora de Início"> <!-- Campo de hora de início. type="time" mostra um seletor de horas no telemóvel -->
+      <input type="time" id="endTime" placeholder="Hora de Fim"> <!-- Campo de hora de fim. Igual ao anterior mas para registar quando o serviço terminou -->
+      <label class="transport-label"> <!-- Etiqueta que agrupa o texto "Transporte" com a sua checkbox. class aplica os estilos específicos -->
+        Transporte <!-- Texto visível ao lado da checkbox que indica o que esta representa -->
+        <input type="checkbox" id="transport"> <!-- Checkbox para indicar se houve transporte. Quando marcada o valor é true, desmarcada é false -->
       </label>
-      <input type="text" id="designation" placeholder="Designação de Serviço">
-      <button type="submit">GUARDAR</button>
+      <input type="text" id="designation" placeholder="Designação de Serviço"> <!-- Campo de texto para a designação/nome do tipo de serviço prestado -->
+      <button type="submit">GUARDAR</button> <!-- Botão de submissão do formulário. type="submit" envia os dados ao ser clicado -->
     </form>
-    <p id="successMsg" class="hidden success-msg">SERVIÇO GUARDADO COM SUCESSO!</p>
-    <button onclick="logout()" class="logout-btn">LOGOUT</button>
+    <p id="successMsg" class="hidden success-msg">SERVIÇO GUARDADO COM SUCESSO!</p> <!-- Mensagem de confirmação. Começa escondida (hidden) e aparece após guardar com sucesso -->
+    <button onclick="logout()" class="logout-btn">LOGOUT</button> <!-- Botão de logout do Trabalhador. class="logout-btn" aplica um estilo visual diferente dos outros botões -->
+    <footer class="signature">
+      <span class="produced-by">PRODUCED BY</span>
+      <img src="images/logo_amusing_cloud.png" alt="Logo">
+      <span class="brand-name">AMUSING-CLOUD</span>
+    </footer>
   </div>
 
-  <!-- VISTA GESTOR -->
-  <div id="manager-app" class="hidden">
-    <h2>SERVIÇOS</h2>
-    <div class="table-wrapper">
-      <table id="servicesTable">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Empresa</th>
-            <th>Local</th>
-            <th>Data</th>
-            <th>Hora Início</th>
-            <th>Hora Fim</th>
-            <th>Horas Totais</th>
-            <th>Transporte</th>
-            <th>Designação</th>
-            <th>Faturado</th>
-            <th>Ações</th>
+  <!-- VISTA GESTOR --> <!-- Comentário a separar e identificar a secção exclusiva do perfil Gestor -->
+  <div id="manager-app" class="hidden"> <!-- Caixa da vista do Gestor. class="hidden" torna-a invisível até o login ser feito com o perfil de gestor -->
+    <h2>SERVIÇOS</h2> <!-- Título de nível 2 da secção da tabela de serviços -->
+    <div class="table-wrapper"> <!-- Caixa envolvente da tabela. Permite scroll horizontal em ecrãs pequenos sem quebrar o layout -->
+      <table id="servicesTable"> <!-- Tabela com id "servicesTable". O JavaScript vai preencher as linhas dinamicamente com os dados do Firebase -->
+        <thead> <!-- Cabeçalho da tabela, contém os títulos das colunas. Não é apagado quando a tabela é recarregada -->
+          <tr> <!-- Uma linha (tr = table row) dentro do cabeçalho com todas as colunas -->
+            <th>ID</th> <!-- Cabeçalho da coluna com o identificador único de cada serviço -->
+            <th>Empresa</th> <!-- Cabeçalho da coluna com o nome da empresa cliente -->
+            <th>Local</th> <!-- Cabeçalho da coluna com o local onde o serviço foi prestado -->
+            <th>Data</th> <!-- Cabeçalho da coluna com a data do serviço -->
+            <th>Hora Início</th> <!-- Cabeçalho da coluna com a hora de início do serviço -->
+            <th>Hora Fim</th> <!-- Cabeçalho da coluna com a hora de fim do serviço -->
+            <th>Horas Totais</th> <!-- Cabeçalho da coluna calculada automaticamente com a duração total do serviço -->
+            <th>Transporte</th> <!-- Cabeçalho da coluna que indica se houve transporte (Sim/Não) -->
+            <th>Designação</th> <!-- Cabeçalho da coluna com a designação/tipo do serviço -->
+            <th>Faturado</th> <!-- Cabeçalho da coluna com a checkbox que indica se o serviço já foi faturado -->
+            <th>Ações</th> <!-- Cabeçalho da coluna com os botões de ação (editar, eliminar) para cada serviço -->
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody></tbody> <!-- Corpo da tabela, começa vazio. O JavaScript preenche aqui as linhas com os dados do Firebase -->
       </table>
     </div>
-    <div class="manager-btns">
-      <button onclick="exportToCSV()">EXPORTAR EXCEL</button>
-      <button onclick="logout()" class="logout-btn">LOGOUT</button>
+    <div class="manager-btns"> <!-- Caixa que agrupa os botões de ação do gestor, para os alinhar e estilizar juntos -->
+      <button onclick="exportToCSV()">EXPORTAR EXCEL</button> <!-- Botão que chama a função exportToCSV() para descarregar os dados da tabela em formato CSV/Excel -->
+      <button onclick="logout()" class="logout-btn">LOGOUT</button> <!-- Botão de logout do Gestor. class="logout-btn" aplica o estilo visual diferenciado -->
     </div>
+    <footer class="signature">
+      <span class="produced-by">PRODUCED BY</span>
+      <img src="images/logo_amusing_cloud.png" alt="Logo">
+      <span class="brand-name">AMUSING-CLOUD</span>
+    </footer>
   </div>
 
-  <!-- Firebase JS SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase JS SDKs --> <!-- Comentário a indicar que os scripts seguintes são as bibliotecas do Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script> <!-- Carrega o núcleo principal do Firebase, obrigatório para todos os outros módulos funcionarem -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script> <!-- Carrega o módulo de Autenticação do Firebase, necessário para o login/logout -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script> <!-- Carrega o módulo Firestore do Firebase, necessário para ler e escrever na base de dados -->
 
-  <script src="app.js"></script>
-</body>
-</html>
+  <script src="app.js"></script> <!-- Carrega o nosso ficheiro app.js com toda a lógica da app. DEVE vir sempre DEPOIS dos scripts do Firebase -->
+</body> <!-- Fecha a secção de conteúdo visível da página -->
+</html> <!-- Fecha o documento HTML -->
